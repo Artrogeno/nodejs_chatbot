@@ -1,0 +1,68 @@
+{
+  "env": {
+    "browser": false,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "standard"],
+  "parserOptions": {
+    "acmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "rules": {
+    "indent": [true, 2, {"SwitchCase": 1, "VariableDeclarator": 0}],
+    "class-name": true,
+    "no-string-literal": false,
+    "ordered-imports": false,
+    "trailing-comma": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [
+      false,
+      "double"
+    ],
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-whitespace"
+    ],
+    "max-line-length": [
+      true,
+      140
+    ],
+    "semicolon": [
+      false,
+      "always"
+    ],
+    "no-console": [false,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-snake-case",
+      "allow-leading-underscore",
+      "allow-trailing-underscore"
+    ],
+    "no-shadowed-variable": [
+      false,
+      {
+        "class": true,
+        "enum": true,
+        "function": true,
+        "interface": false,
+        "namespace": true,
+        "typeAlias": false,
+        "typeParameter": false,
+        "temporalDeadZone": true
+      }
+    ]
+  }
+}
