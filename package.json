@@ -4,6 +4,9 @@
   "description": "Project open source with NodeJs/MongoDB/Telegram",
   "main": "index.js",
   "scripts": {
+    "esm-dev": "nodemon -r esm src/index.js",
+    "esm-pro": "node -r esm src/index.js",
+    "start": "npm run esm-dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +19,40 @@
   "bugs": {
     "url": "https://github.com/Artrogeno/nodejs_chatbot/issues"
   },
-  "homepage": "https://github.com/Artrogeno/nodejs_chatbot#readme"
+  "homepage": "https://github.com/Artrogeno/nodejs_chatbot#readme",
+  "dependencies": {
+    "async": "^2.6.2",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "esm": "^3.2.10",
+    "express": "^4.16.4",
+    "express-body-parser-json-error": "^0.1.0",
+    "express-validator": "^5.3.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.0",
+    "lodash": "^4.17.11",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "mongoose": "^5.4.17",
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1",
+    "passport": "^0.4.0",
+    "pm2": "^3.3.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "uuid": "^3.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "eslint": "^5.15.1",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10"
+  }
 }
