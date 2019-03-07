@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { userSave, comparePassword, generateToken } from './middleware/user'
+import { userSave, userUpdate, comparePassword, generateToken } from './middleware/user'
 
 let userSchema = Schema({
   nickname: {
@@ -35,6 +35,8 @@ let userSchema = Schema({
 })
 
 userSchema.pre('save', userSave)
+
+userSchema.pre('findOneAndUpdate', userUpdate)
 
 userSchema.methods.comparePassword = comparePassword
 
