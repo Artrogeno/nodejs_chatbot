@@ -13,6 +13,14 @@ export const userSave = async function (next) {
   }
 }
 
+export const userUpdate = async function (next) {
+  let self = this.getUpdate();
+  if (self.password) {
+    self.password = await bcrypt.hash(self.password, 8)
+  }
+  next()
+}
+
 export const comparePassword = (password) => {
   return bcrypt.compare(password, this.password)
 }
