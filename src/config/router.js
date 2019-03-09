@@ -9,9 +9,5 @@ export class ConfigRouter {
 
 	providerRoutes() {
     this.router.use('/api', new ApiRouter().router)
-    // this.router.get('/api/test', (req, res, next) => {
-    //   res.send('Test endpoint api')
-    //   next()
-    // })
 	}
 }

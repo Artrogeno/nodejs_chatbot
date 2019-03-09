@@ -6,19 +6,16 @@ import http from 'http'
 import cors from 'cors'
 import methodOverride from 'method-override'
 import { Connection } from './database';
-
 import { ConfigRouter } from './router'
+import { PassportMiddleware } from '../utils/middleware/passport';
 
 export class Server extends  Connection{
-  // static async connectDB() {
-  //   return new Connection()
-  // }
-
   constructor() {
 		super()
     this.router = new ConfigRouter().router
     this.express = express()
 		this.server = http.createServer(this.express)
+		this.initPassport = new PassportMiddleware().initialize
   }
 
   async start() {
@@ -74,5 +71,6 @@ export class Server extends  Connection{
 			res.json({ error: error.message })
 			next()
 		})
+		this.express.use(this.initPassport);
 	}
 }
