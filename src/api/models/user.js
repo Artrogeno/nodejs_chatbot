@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose'
+// import { Role } from './role'
 import { userSave, userUpdate, comparePassword, generateToken } from './middleware/user'
 
 let userSchema = Schema({
@@ -28,6 +29,7 @@ let userSchema = Schema({
     type: Boolean,
     default: true,
   },
+  roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
   createdAt: {
     type: Date,
     default: Date.now,
