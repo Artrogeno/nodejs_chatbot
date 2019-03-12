@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { PassportMiddleware } from '../utils/middleware/passport'
+import PassportMiddleware from '../utils/middleware/passport'
 import { UserRouter } from './modules/user'
 import { ChannelRouter } from './modules/channel'
 import { AuthRouter } from './modules/auth'
@@ -8,7 +8,7 @@ import { AuthRouter } from './modules/auth'
 export class ApiRouter {
 	constructor() {
 		this.router = Router()
-		this.authenticate = new PassportMiddleware().authenticate
+		this.authenticate = PassportMiddleware.authenticate
 		this.providerRoutes()
 	}
 

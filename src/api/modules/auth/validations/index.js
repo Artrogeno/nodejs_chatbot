@@ -11,4 +11,4 @@ class AuthValidations {
   }
 }
 
-export const validations = new AuthValidations()
+export default new AuthValidations()
