@@ -2,7 +2,6 @@ import { BaseController } from '../../../../utils/base'
 import { User } from '../../../models'
 
 export class UserController extends BaseController {
-
   constructor(req, res, next) {
     super(req, res, next)
     this.User = User
@@ -11,7 +10,7 @@ export class UserController extends BaseController {
   async index() {
     let messages, data
     try {
-      data = await User.find({})
+      data = await this.User.find({})
       messages = this.messages.USER_CREATED_SUCCESS
       this.sendResponse({data, messages})
     } catch (error) {
@@ -23,7 +22,7 @@ export class UserController extends BaseController {
   async show() {
     try {
       let { id } = this.req.params
-      let data = await User.findById(id).lean()
+      let data = await this.User.findById(id).lean()
       this.sendResponse({data})
     } catch (error) {
       this.sendError({messages: this.messages.UNAUTHORIZED_REQUEST})
@@ -33,7 +32,7 @@ export class UserController extends BaseController {
   async store() {
     const { nickname, email, password } = this.req.body
     let data, messages, token
-    const findUser = await User.findOne({ where: { email } }).lean()
+    const findUser = await this.User.findOne({ where: { email } }).lean()
     if (!findUser) {
       data = await User.create({ nickname, email, password })
       messages = this.messages.USER_CREATED_SUCCESS
@@ -49,7 +48,7 @@ export class UserController extends BaseController {
     const { nickname, email, password } = this.req.body
     let params = this.clearParams({nickname, email, password})
     try {
-      await User.findOneAndUpdate({_id: id}, params).lean()
+      await this.User.findOneAndUpdate({_id: id}, params).lean()
       let messages = this.messages.USER_UPDATED_SUCCESS
       this.sendResponse({messages})
     } catch (error) {
@@ -61,7 +60,7 @@ export class UserController extends BaseController {
     const { id } = this.req.params
     let messages
     try {
-      await User.deleteOne({_id: id})
+      await this.User.deleteOne({_id: id})
       messages = this.messages.USER_DELETED_SUCCESS
       this.sendResponse({messages})
     } catch (error) {

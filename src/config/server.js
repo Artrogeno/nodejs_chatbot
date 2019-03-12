@@ -8,7 +8,7 @@ import methodOverride from 'method-override'
 import { Connection } from './database'
 import { ConfigRouter } from './router'
 import { HandlerMiddleware } from './../utils/middleware/handler'
-import { PassportMiddleware } from '../utils/middleware/passport'
+import PassportMiddleware from '../utils/middleware/passport'
 
 export class Server extends  Connection{
   constructor() {
@@ -17,7 +17,7 @@ export class Server extends  Connection{
 		this.handler = new HandlerMiddleware()
     this.express = express()
 		this.server = http.createServer(this.express)
-		this.initPassport = new PassportMiddleware().initialize
+		this.passport = PassportMiddleware.initialize
   }
 
   async start() {
@@ -54,6 +54,6 @@ export class Server extends  Connection{
 		})
 		this.express.use(this.router)
 		this.express.use('*', this.handler.routerHandler, this.handler.errorHandler)
-		this.express.use(this.initPassport)
+		this.express.use(this.passport)
 	}
 }

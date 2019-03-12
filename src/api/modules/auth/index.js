@@ -1,6 +1,6 @@
 import { BaseRouter } from './../../../utils/base'
 import { AuthController } from './controllers/auth'
-import { validations } from './validations'
+import validations from './validations'
 
 export class AuthRouter extends BaseRouter {
 	constructor() {

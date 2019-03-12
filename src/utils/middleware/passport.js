@@ -4,19 +4,18 @@ import { env } from 'process'
 import { User } from '../../api/models'
 import { BaseController } from '../base'
 
-export class PassportMiddleware extends BaseController {
+class PassportMiddleware extends BaseController {
   constructor() {
     super()
-    this.User = User
   }
 
   initialize() {
-    let options = {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    let opts = {
+      jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
       secretOrKey: env.JWT_SECREAT
     }
-    passport.use(new Strategy(options, (payload, done) => {
-      this.User.findOne({ìd: payload.id}, (error, user) => {
+    passport.use(new Strategy(opts, (payload, done) => {
+      User.findOne({_id: payload._id}, (error, user) => {
         if (error) { return done(error, false) }
         user ? done(null, user) : done(null, false)
       })
@@ -25,13 +24,13 @@ export class PassportMiddleware extends BaseController {
   }
 
   authenticate(req, res, next) {
-    passport.authenticate('Bearer', {session: false}, (error, user, info) => {
+    passport.authenticate('jwt', {session: false}, (error, user, info) => {
       if (error) { return next(error) }
       if (!user) {
-        if (info.name === 'TokenExpiredError') {
-          return this.sendError({messages: this.messages.TOKEN_EXPIRED})
+        if (info && info.name === 'TokenExpiredError') {
+          return next(new Error('TOKEN_EXPIRED'))
         } else {
-          return this.sendError({messages: this.messages.TOKEN_INVALID})
+          return next(new Error('TOKEN_INVALID'))
         }
       }
       req.user = user
@@ -39,3 +38,5 @@ export class PassportMiddleware extends BaseController {
     })(req, res, next)
   }
 }
+
+export default new PassportMiddleware()
