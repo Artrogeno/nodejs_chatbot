@@ -1,4 +1,6 @@
-# #!/bin/bash
+#!/bin/bash
+# cd ../
+
 WIDTH=25
 COLS=4
 CONTAINER_LIST=("api" "mongo" "redis" "exit")

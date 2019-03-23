@@ -6,10 +6,10 @@
   "scripts": {
     "esm-dev": "nodemon -r esm src/index.js",
     "esm-pro": "node -r esm src/index.js",
-    "start": "npm run esm-dev",
+    "start": "NODE_CONFIG_ENV=development && npm run esm-dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init-with-docker": "bash ./scripts/init-docker.sh",
-    "start-with-docker": "bash ./scripts/start-docker.sh"
+    "start-docker": "bash scripts/start.sh",
+    "stop-docker": "bash scripts/stop.sh"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Artrogeno/nodejs_chatbot#readme",
   "dependencies": {
     "async": "^2.6.2",
+    "axios": "^0.18.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
@@ -46,7 +47,7 @@
     "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pm2": "^3.3.1",
+    "pm2": "^3.4.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "uuid": "^3.3.2",
