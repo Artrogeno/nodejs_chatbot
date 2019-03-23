@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    container_name: api
+    ports:
+      - "3000:3000"
+    build: .
+    restart: always
+    entrypoint: ["bash"]
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - "27018:27017"
+  redis:
+    container_name: redis
+    image: 'redis'
+    ports:
+      - 54241:54241
+    links:
+      - mongo
