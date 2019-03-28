@@ -29,7 +29,7 @@ export class AuthController extends BaseController {
       user.comparePassword(password, (error, isMatch) => {
         if (isMatch && !error) {
           let {roles, isActive, _id, nickname, email } = user.toJSON()
-          const token = this.Sign({roles, isActive, _id, nickname, email}, env.JWT_SECREAT,{ expiresIn: env.JWT_EXPIRES || '30m' })
+          const token = this.Sign({roles, isActive, _id, nickname, email}, env.JWT_SECREAT,{ expiresIn: env.JWT_EXPIRES || '10h' })
           this.sendResponse({messages: this.messages.USER_CREATED_SUCCESS, token})
         } else {
           this.sendError({messages: this.messages.AUTHENTICATION_FAILED_PASSWORD})

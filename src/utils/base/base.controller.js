@@ -12,7 +12,7 @@ export class BaseController extends BaseMessage{
 	sendResponse({...params}) {
 		let response = {}
 		let { messages, data, status, token } = params
-		if(messages) response.messages = messages
+		response.messages = messages || this.messages.OK_REQUEST
 		if(data) response.data = data
 		if(token) response.token = token
 		this.res.status( status || 200 ).json(response)

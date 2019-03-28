@@ -8,16 +8,16 @@ import methodOverride from 'method-override'
 import { Connection } from './database'
 import { ConfigRouter } from './router'
 import { HandlerMiddleware } from './../utils/middleware/handler'
-import PassportMiddleware from '../utils/middleware/passport'
+import { JwtMiddleware } from '../utils/middleware/jwt'
 
-export class Server extends  Connection{
+export class Server extends Connection{
   constructor() {
 		super()
     this.router = new ConfigRouter().router
 		this.handler = new HandlerMiddleware()
+		this.jwt = new JwtMiddleware()
     this.express = express()
 		this.server = http.createServer(this.express)
-		this.passport = PassportMiddleware.initialize
   }
 
   async start() {
@@ -32,7 +32,7 @@ export class Server extends  Connection{
 		return this.express
   }
 
-  expressConfig() {
+  async expressConfig() {
 		this.express.use(morgan(':method :url :status :response-time'))
 		this.express.use(bodyParser.urlencoded({ extended: true }))
 		this.express.use(bodyParser.json({ limit: '20mb' }))
@@ -46,14 +46,11 @@ export class Server extends  Connection{
 		})
 		this.express.use(morgan('combined'))
 		this.express.use(cors())
+		this.express.use( await this.jwt.authenticate)
 	}
 
 	routerConfig() {
-		this.express.get('/health', (req, res, next) => {
-			res.status(200).json({server: 'server it\'s works!'})
-		})
 		this.express.use(this.router)
 		this.express.use('*', this.handler.routerHandler, this.handler.errorHandler)
-		this.express.use(this.passport)
 	}
 }
