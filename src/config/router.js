@@ -8,6 +8,9 @@ export class ConfigRouter {
 	}
 
 	providerRoutes() {
-    this.router.use('/api', new ApiRouter().router)
+		this.router.get('/health', (req, res, next) => {
+			res.status(200).json({server: 'server it\'s works!'})
+		})
+		this.router.use('/api', new ApiRouter().router)
 	}
 }

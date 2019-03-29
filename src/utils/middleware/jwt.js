@@ -14,7 +14,6 @@ export class JwtMiddleware {
         token = Sanitize.getTokenFromHeader(authorization)
         const jwtVerifyAsync = promisify(jwt.verify, { context: jwt })
         req.token = await jwtVerifyAsync(token, process.env.JWT_SECREAT)
-        next()
       }
       next()
     } catch (err) {
@@ -23,3 +22,4 @@ export class JwtMiddleware {
     }
   }
 }
+

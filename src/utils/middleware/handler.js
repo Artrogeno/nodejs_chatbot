@@ -32,6 +32,6 @@ export class HandlerMiddleware extends HttpError {
     return res.status(error.statusCode || 401).json({
       message: messages,
       data: error.data || ''
-    });
+    })
   }
 }
